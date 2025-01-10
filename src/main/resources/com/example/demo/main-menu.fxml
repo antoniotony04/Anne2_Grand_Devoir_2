@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.geometry.*?>
+
+<BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml" fx:controller="com.example.demo.MainMenuController">
+    <top>
+        <Label text="Survival Game" alignment="CENTER" style="-fx-font-size: 24px; -fx-font-weight: bold;" BorderPane.alignment="CENTER"/>
+    </top>
+    <center>
+        <VBox alignment="CENTER" spacing="20">
+            <Button text="Resume" onAction="#resumeGame"/>
+            <Button text="New Game" onAction="#newGame"/>
+            <Button text="Options" onAction="#openOptions"/>
+            <Button text="Help" onAction="#showHelp"/>
+            <Button text="Exit" onAction="#exitGame"/>
+        </VBox>
+    </center>
+    <bottom>
+        <GridPane fx:id="gameGrid" alignment="CENTER" hgap="5" vgap="5">
+            <padding>
+                <Insets top="10" right="10" bottom="10" left="10"/>
+            </padding>
+            <!-- Harta generată va fi afișată aici -->
+        </GridPane>
+    </bottom>
+</BorderPane>
