@@ -19,8 +19,7 @@ Ce projet fait partie du cours de **Programmation Orientée Objet (POO)** et con
 ## **Spécifications techniques**
 
 ### **Technologies**
-- **JavaFX** : Obligatoire pour les TPs avec **Iulia Stanica**.
-- **Java Swing** : Obligatoire pour les TPs avec **Alexandru Bratosin**.
+### **JavaFX**
 
 ### **Tâches principales**
 1. Implémenter l’interface graphique du jeu (2D).
@@ -72,9 +71,3 @@ Ce projet fait partie du cours de **Programmation Orientée Objet (POO)** et con
 - **Présentation** : Pendant la séance de TP correspondante.
 
 ---
-
-## **Contacts**
-
-- **Iulia Stanica** : Pour les questions liées à **JavaFX**.
-- **Alexandru Bratosin** : Pour les questions liées à **Java Swing**.
-- Groupe Teams dédié au cours POO.
