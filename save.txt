@@ -1,0 +1,14 @@
+8 7
+null null null null null null null null null Rock 
+null Rock null null Rock null null null null null 
+Rock null null null null null null Tree null null 
+Enemy null Rock null null null Grain null null null 
+null null null null null null null null Enemy null 
+null null null null null null null null null Enemy 
+null null null Rock null null Enemy null null Tree 
+null null Rock null null null Tree null Player null 
+null null null Tree null null Grain null Rock null 
+Enemy Tree Tree null null null null Tree null null 
+Lemn 5
+Grâne 5
+Piatră 4
