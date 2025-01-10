@@ -12,13 +12,14 @@
         </GridPane>
     </center>
     <right>
-        <VBox fx:id="inventoryBox" spacing="10" alignment="TOP_CENTER">
-            <padding>
-                <Insets top="10" right="10" bottom="10" left="10"/>
-            </padding>
+        <VBox alignment="TOP_CENTER" spacing="10">
             <Label text="Inventar:"/>
-            <ListView fx:id="inventoryList"/>
+            <ListView fx:id="inventoryList" prefHeight="200" prefWidth="150"/>
+            <Button text="Save Game" onAction="#saveGame" prefWidth="150"/>
+            <Button text="Load Game" onAction="#loadGame" prefWidth="150"/>
         </VBox>
     </right>
+
+
 </BorderPane>
 

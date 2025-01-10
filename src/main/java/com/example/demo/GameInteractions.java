@@ -91,4 +91,12 @@ public class GameInteractions {
     public int getPlayerY() {
         return playerY;
     }
+
+    public void setPlayerPosition(int x, int y) {
+        map[playerY][playerX] = null; // Eliminăm jucătorul din poziția veche
+        playerX = x;
+        playerY = y;
+        map[playerY][playerX] = "Player"; // Setăm jucătorul în poziția nouă
+    }
+
 }

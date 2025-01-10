@@ -6,6 +6,9 @@ import javafx.fxml.FXML;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.control.ListView;
 import javafx.scene.layout.GridPane;
+import java.io.*;
+
+import java.io.IOException;
 
 public class GameIntegration {
 
@@ -145,5 +148,73 @@ public class GameIntegration {
             formattedInventory.add(formattedItem);
         }
     }
+
+    public void saveGame() {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("save.txt"))) {
+            // Salvăm poziția jucătorului din GameInteractions
+            writer.write(gameInteractions.getPlayerX() + " " + gameInteractions.getPlayerY());
+            writer.newLine();
+
+            // Salvăm harta
+            for (int y = 0; y < map.length; y++) {
+                for (int x = 0; x < map[y].length; x++) {
+                    writer.write((map[y][x] == null ? "null" : map[y][x].toString()) + " ");
+                }
+                writer.newLine();
+            }
+
+            // Salvăm inventarul
+            for (int i = 0; i < inventoryNames.size(); i++) {
+                writer.write(inventoryNames.get(i) + " " + inventoryCounts.get(i));
+                writer.newLine();
+            }
+
+            System.out.println("Jocul a fost salvat.");
+        } catch (IOException e) {
+            System.out.println("Eroare la salvarea jocului: " + e.getMessage());
+        }
+    }
+
+
+
+    public void loadGame() {
+        try (BufferedReader reader = new BufferedReader(new FileReader("save.txt"))) {
+            // Încărcăm poziția jucătorului în GameInteractions
+            String[] position = reader.readLine().split(" ");
+            int playerX = Integer.parseInt(position[0]);
+            int playerY = Integer.parseInt(position[1]);
+            gameInteractions.setPlayerPosition(playerX, playerY); // Setăm poziția jucătorului
+
+            // Încărcăm harta
+            for (int y = 0; y < map.length; y++) {
+                String[] line = reader.readLine().split(" ");
+                for (int x = 0; x < map[y].length; x++) {
+                    map[y][x] = line[x].equals("null") ? null : line[x];
+                }
+            }
+
+            // Încărcăm inventarul
+            inventoryNames.clear();
+            inventoryCounts.clear();
+            String line;
+            while ((line = reader.readLine()) != null) {
+                String[] parts = line.split(" ");
+                inventoryNames.add(parts[0]);
+                inventoryCounts.add(Integer.parseInt(parts[1]));
+            }
+
+            // Actualizăm lista formatată
+            updateFormattedInventory();
+
+            // Redesenăm harta
+            drawMap();
+
+            System.out.println("Jocul a fost încărcat.");
+        } catch (IOException e) {
+            System.out.println("Eroare la încărcarea jocului: " + e.getMessage());
+        }
+    }
+
+
 
 }
