@@ -18,7 +18,7 @@ Ce projet fait partie du cours de **Programmation Orientée Objet (POO)** et con
 
 ## **Spécifications techniques**
 
-### **Technologies** : ### **JavaFX**
+### **Technologies** : **JavaFX**
 
 ### **Tâches principales**
 1. Implémenter l’interface graphique du jeu (2D).
