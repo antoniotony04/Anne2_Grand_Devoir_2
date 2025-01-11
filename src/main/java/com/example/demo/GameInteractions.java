@@ -7,8 +7,8 @@ import javafx.scene.input.KeyEvent;
 
 public class GameInteractions {
 
-    private Object[][] map; // Referință la hartă
-    private int playerX, playerY; // Coordonatele jucătorului
+    private Object[][] map; // Referința la harta
+    private int playerX, playerY; // Coordonatele jucatorului
     private ObservableList<String> inventory = FXCollections.observableArrayList();
     private GameIntegration gameIntegration;
     public GameInteractions(Object[][] map, int startX, int startY, GameIntegration gameIntegration) {
@@ -36,11 +36,11 @@ public class GameInteractions {
             Object encountered = map[newY][newX];
 
             if (encountered != null) {
-                // Apelăm metoda handleCellInteraction din GameIntegration
+                // Apelam metoda handleCellInteraction din GameIntegration
                 gameIntegration.handleCellInteraction(newX, newY);
             }
 
-            // Mutăm jucătorul
+            // Mutam jucatorul
             updatePlayerPosition(newX, newY);
         }
     }
@@ -49,39 +49,11 @@ public class GameInteractions {
         return x >= 0 && x < map[0].length && y >= 0 && y < map.length;
     }
 
-    private void handleCellInteraction(int x, int y) {
-        Object encountered = map[y][x];
-
-        if (encountered == null) {
-            System.out.println("Te-ai mutat pe o celulă goală.");
-        } else if ("Tree".equals(encountered)) {
-            System.out.println("Ai colectat lemn.");
-            inventory.add("Lemn"); // Adăugăm în inventar
-            System.out.println("Inventar: " + inventory); // Debugging
-            map[y][x] = null;
-        } else if ("Rock".equals(encountered)) {
-            System.out.println("Ai colectat piatră.");
-            inventory.add("Piatră"); // Adăugăm în inventar
-            System.out.println("Inventar: " + inventory); // Debugging
-            map[y][x] = null;
-        } else if ("Grain".equals(encountered)) {
-            System.out.println("Ai colectat grâne.");
-            inventory.add("Grâne"); // Adăugăm în inventar
-            System.out.println("Inventar: " + inventory); // Debugging
-            map[y][x] = null;
-        } else if ("Enemy".equals(encountered)) {
-            System.out.println("Ai întâlnit un inamic! Lupta începe.");
-            // Logică pentru luptă
-        }
-    }
-
-
-
     private void updatePlayerPosition(int newX, int newY) {
         map[playerY][playerX] = null; // Golim celula veche
         playerX = newX;
         playerY = newY;
-        map[playerY][playerX] = "Player"; // Actualizăm poziția jucătorului
+        map[playerY][playerX] = "Player"; // Actualizam poziția jucatorului
     }
 
     public int getPlayerX() {
@@ -93,10 +65,10 @@ public class GameInteractions {
     }
 
     public void setPlayerPosition(int x, int y) {
-        map[playerY][playerX] = null; // Eliminăm jucătorul din poziția veche
+        map[playerY][playerX] = null; // Eliminam jucatorul din poziția veche
         playerX = x;
         playerY = y;
-        map[playerY][playerX] = "Player"; // Setăm jucătorul în poziția nouă
+        map[playerY][playerX] = "Player"; // Setam jucatorul în poziția noua
     }
 
 }

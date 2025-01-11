@@ -12,6 +12,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
 
+import java.io.FileNotFoundException;
 import java.io.IOException;
 import java.util.Random;
 
@@ -26,13 +27,25 @@ public class MainMenuController {
 
     @FXML
     public void resumeGame(ActionEvent event) {
-        // Logică pentru încărcarea unui joc existent
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Resume Game");
-        alert.setHeaderText(null);
-        alert.setContentText("Funcționalitatea de încărcare a unui joc va fi implementată.");
-        alert.showAndWait();
+        try {
+            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("game-integration.fxml"));
+            Parent root = fxmlLoader.load();
+
+            // Obține controller-ul scenei pentru a apela loadGame
+            GameIntegration gameIntegration = fxmlLoader.getController();
+            gameIntegration.loadGame();
+
+            // Setează scena nouă
+            Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (FileNotFoundException e) {
+            System.out.println("Nu există un fișier de salvare.");
+        } catch (IOException e) {
+            System.out.println("Eroare la încărcarea scenei: " + e.getMessage());
+        }
     }
+
 
     @FXML
     public void newGame(ActionEvent event) {

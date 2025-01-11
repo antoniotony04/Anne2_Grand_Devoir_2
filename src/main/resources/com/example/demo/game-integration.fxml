@@ -1,14 +1,14 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.control.*?>
-
 <?import javafx.geometry.Insets?>
+
 <BorderPane xmlns="http://javafx.com/javafx" xmlns:fx="http://javafx.com/fxml"
             fx:controller="com.example.demo.GameIntegration"
             onKeyPressed="#handleKeyPress">
     <center>
         <GridPane fx:id="gameGrid" alignment="CENTER" hgap="5" vgap="5">
-            <!-- Harta generată va fi afișată aici -->
+            <!-- Harta generata va fi afișata aici -->
         </GridPane>
     </center>
     <right>
@@ -17,9 +17,14 @@
             <ListView fx:id="inventoryList" prefHeight="200" prefWidth="150"/>
             <Button text="Save Game" onAction="#saveGame" prefWidth="150"/>
             <Button text="Load Game" onAction="#loadGame" prefWidth="150"/>
+            <Label text="Statistici:"/>
+            <ListView fx:id="statsList" prefHeight="150" prefWidth="150"/>
+            <Button text="Crafting" onAction="#openCraftingWindow" prefWidth="150" />
         </VBox>
     </right>
-
-
+    <bottom>
+        <VBox alignment="CENTER" spacing="10">
+            <Label fx:id="scoreLabel" text="Scor: 0" style="-fx-font-size: 16px;" />
+        </VBox>
+    </bottom>
 </BorderPane>
-
