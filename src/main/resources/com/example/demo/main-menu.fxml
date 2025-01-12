@@ -24,5 +24,6 @@
             </padding>
             <!-- Harta generată va fi afișată aici -->
         </GridPane>
+
     </bottom>
 </BorderPane>

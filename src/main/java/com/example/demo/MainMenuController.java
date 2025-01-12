@@ -7,6 +7,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
@@ -103,7 +104,10 @@ public class MainMenuController {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Help");
         alert.setHeaderText(null);
-        alert.setContentText("Aici vor fi afișate instrucțiunile pentru joc.");
+        alert.setContentText("1. WASD to move \n" +
+                "2. Kill enemies and get the highest score!\n"+
+                "3. Craft the best items using Sangele Inamicului\n"+
+                "4. Have fun!");
         alert.showAndWait();
     }
 
