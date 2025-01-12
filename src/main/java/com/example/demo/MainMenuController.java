@@ -20,18 +20,18 @@ import java.util.Random;
 
 public class MainMenuController {
 
-    private static final int MAP_SIZE = 10; // Dimensiunea hărții
-    private Object[][] map; // Matricea ce conține obiectele
+    private static final int MAP_SIZE = 10;
+    private Object[][] map;
 
     @FXML
-    private GridPane gameGrid; // GridPane pentru afișarea hărții
+    private GridPane gameGrid;
     @FXML
-    private Pane mainPane; // Legat de root Pane-ul principal al aplicației
+    private Pane mainPane;
 
 
     @FXML
     public void initialize() {
-        // Apply the saved background color on load
+
         mainPane.setStyle(SettingsController.getBackgroundColor());
     }
 
@@ -41,11 +41,11 @@ public class MainMenuController {
             FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("game-integration.fxml"));
             Parent root = fxmlLoader.load();
 
-            // Obține controller-ul scenei pentru a apela loadGame
+
             GameIntegration gameIntegration = fxmlLoader.getController();
             gameIntegration.loadGame();
 
-            // Setează scena nouă
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(new Scene(root));
             stage.show();
@@ -64,10 +64,10 @@ public class MainMenuController {
             Parent root = fxmlLoader.load();
             Scene scene = new Scene(root);
 
-            // Setează focusul pe elementul principal
+
             root.requestFocus();
 
-            // Obține fereastra principală și setează scena nouă
+
             Stage stage = (Stage) ((Node) event.getSource()).getScene().getWindow();
             stage.setScene(scene);
             stage.show();
@@ -84,7 +84,7 @@ public class MainMenuController {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("settings.fxml"));
             Parent root = loader.load();
 
-            // Pass the mainPane reference to the SettingsController
+
             SettingsController controller = loader.getController();
             controller.setMainPane(mainPane);
 
@@ -100,7 +100,7 @@ public class MainMenuController {
 
     @FXML
     public void showHelp(ActionEvent event) {
-        // Logică pentru afișarea ajutorului
+
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Help");
         alert.setHeaderText(null);
@@ -113,7 +113,7 @@ public class MainMenuController {
 
     @FXML
     public void exitGame(ActionEvent event) {
-        // Închide aplicația
+
         System.exit(0);
     }
 
@@ -125,22 +125,22 @@ public class MainMenuController {
             for (int x = 0; x < MAP_SIZE; x++) {
                 double chance = random.nextDouble();
                 if (chance < 0.1) {
-                    map[y][x] = "Tree"; // Plasăm un copac
+                    map[y][x] = "Tree";
                 } else if (chance < 0.2) {
-                    map[y][x] = "Rock"; // Plasăm o piatră
+                    map[y][x] = "Rock";
                 } else if (chance < 0.3) {
-                    map[y][x] = "Grain"; // Plasăm grâne
+                    map[y][x] = "Grain";
                 } else if (chance < 0.4) {
-                    map[y][x] = "Enemy"; // Plasăm un inamic
+                    map[y][x] = "Enemy";
                 } else {
-                    map[y][x] = null; // Celulă goală
+                    map[y][x] = null;
                 }
             }
         }
     }
 
     private void drawMap() {
-        gameGrid.getChildren().clear(); // Curățăm gridul existent
+        gameGrid.getChildren().clear();
 
         for (int y = 0; y < MAP_SIZE; y++) {
             for (int x = 0; x < MAP_SIZE; x++) {

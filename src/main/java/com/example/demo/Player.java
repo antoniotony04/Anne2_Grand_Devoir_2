@@ -8,7 +8,7 @@ public class Player {
     private int baseAttack;
     private ArrayList<Item> equippedItems;
 
-    // Liste pentru gestionarea inventarului
+    
     private ArrayList<String> inventoryNames = new ArrayList<>();
     private ArrayList<Integer> inventoryCounts = new ArrayList<>();
 
@@ -19,7 +19,7 @@ public class Player {
         this.equippedItems = new ArrayList<>();
     }
 
-    // Metode pentru statistici
+    
     public int getHp() {
         int bonusHp = equippedItems.stream().mapToInt(Item::getHpBonus).sum();
         return baseHp + bonusHp;
@@ -39,13 +39,13 @@ public class Player {
         baseHp -= Math.max(0, damage - getArmor());
     }
 
-    // Metode pentru echipamente
+    
     public void equipItem(Item item) {
-        // Eliminam orice alt item din același tip
+        
         equippedItems.removeIf(equipped -> equipped.getType().equals(item.getType()));
         equippedItems.add(item);
 
-        // Eliminam itemul echipat din inventar (daca exista)
+        
         int index = inventoryNames.indexOf(item.getName());
         if (index >= 0) {
             inventoryCounts.set(index, inventoryCounts.get(index) - 1);
@@ -80,7 +80,7 @@ public class Player {
         this.equippedItems = equippedItems;
     }
 
-    // Metode pentru gestionarea inventarului
+    
     public ArrayList<String> getInventoryNames() {
         return inventoryNames;
     }
@@ -92,10 +92,10 @@ public class Player {
     public void addItemToInventory(String itemName) {
         int index = inventoryNames.indexOf(itemName);
         if (index >= 0) {
-            // Item-ul exista deja în inventar
+            
             inventoryCounts.set(index, inventoryCounts.get(index) + 1);
         } else {
-            // Adaugam un nou item
+            
             inventoryNames.add(itemName);
             inventoryCounts.add(1);
         }
@@ -121,7 +121,7 @@ public class Player {
     }
 
     public int getItemCount(String itemName) {
-        int index = inventoryNames.indexOf(itemName.trim()); // Eliminam eventualele spații
+        int index = inventoryNames.indexOf(itemName.trim()); 
         return index >= 0 ? inventoryCounts.get(index) : 0;
     }
 

@@ -7,8 +7,8 @@ import javafx.scene.input.KeyEvent;
 
 public class GameInteractions {
 
-    private Object[][] map; // Referința la harta
-    private int playerX, playerY; // Coordonatele jucatorului
+    private Object[][] map;
+    private int playerX, playerY;
     private ObservableList<String> inventory = FXCollections.observableArrayList();
     private GameIntegration gameIntegration;
     public GameInteractions(Object[][] map, int startX, int startY, GameIntegration gameIntegration) {
@@ -36,11 +36,11 @@ public class GameInteractions {
             Object encountered = map[newY][newX];
 
             if (encountered != null) {
-                // Apelam metoda handleCellInteraction din GameIntegration
+
                 gameIntegration.handleCellInteraction(newX, newY);
             }
 
-            // Mutam jucatorul
+
             updatePlayerPosition(newX, newY);
         }
     }
@@ -50,10 +50,10 @@ public class GameInteractions {
     }
 
     private void updatePlayerPosition(int newX, int newY) {
-        map[playerY][playerX] = null; // Golim celula veche
+        map[playerY][playerX] = null;
         playerX = newX;
         playerY = newY;
-        map[playerY][playerX] = "Player"; // Actualizam poziția jucatorului
+        map[playerY][playerX] = "Player";
     }
 
     public int getPlayerX() {
@@ -65,10 +65,10 @@ public class GameInteractions {
     }
 
     public void setPlayerPosition(int x, int y) {
-        map[playerY][playerX] = null; // Eliminam jucatorul din poziția veche
+        map[playerY][playerX] = null;
         playerX = x;
         playerY = y;
-        map[playerY][playerX] = "Player"; // Setam jucatorul în poziția noua
+        map[playerY][playerX] = "Player";
     }
 
 }

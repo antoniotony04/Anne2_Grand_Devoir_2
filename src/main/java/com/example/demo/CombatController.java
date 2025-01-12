@@ -15,7 +15,7 @@ public class CombatController {
     private GameIntegration gameIntegration;
     private int enemyHp = 50;
     private Player player;
-    private Runnable onCombatEnd; // Callback pentru a închide fereastra și a continua jocul
+    private Runnable onCombatEnd;
 
     public void setGameIntegration(GameIntegration gameIntegration) {
         this.gameIntegration = gameIntegration;
@@ -33,8 +33,8 @@ public class CombatController {
 
     @FXML
     private void handleAttack() {
-        enemyHp -= player.getAttack(); // Jucatorul ataca inamicul
-        player.takeDamage(10); // Inamicul ataca jucatorul
+        enemyHp -= player.getAttack();
+        player.takeDamage(10);
 
         updateLabels();
 
@@ -55,10 +55,10 @@ public class CombatController {
 
             if (count > 0) {
                 player.getInventoryCounts().set(index, count - 1);
-                player.setBaseHp(player.getHp() + 20); // Heal pentru 20 HP
+                player.setBaseHp(player.getHp() + 20);
                 System.out.println("Ai folosit Grâne și te-ai vindecat cu 20 HP.");
                 updateLabels();
-                gameIntegration.updateFormattedInventory(); // Actualizam inventarul
+                gameIntegration.updateFormattedInventory();
             } else {
                 System.out.println("Nu mai ai Grâne!");
             }
@@ -76,20 +76,19 @@ public class CombatController {
         Stage stage = (Stage) enemyHpLabel.getScene().getWindow();
 
         if (enemyHp <= 0) {
-            // Incrementam scorul
             gameIntegration.incrementScore();
             System.out.println("Ai câștigat lupta! Scorul tau: " + gameIntegration.getScore());
 
-            // Drop de iteme
+
             gameIntegration.getPlayer().addItemToInventory("Sângele Inamicului");
             System.out.println("Ai primit 'Sângele Inamicului'.");
 
-            // Generam un loot aleatoriu și întrebam daca dorim sa echipam
+
             Item drop = gameIntegration.generateRandomLoot();
             gameIntegration.askToEquipItem(drop);
 
-            gameIntegration.updateFormattedInventory(); // Actualizam inventarul
-            gameIntegration.updateScore(); // Actualizam scorul în interfața
+            gameIntegration.updateFormattedInventory();
+            gameIntegration.updateScore();
         }
 
         if (gameIntegration.getPlayer().getHp() <= 0) {

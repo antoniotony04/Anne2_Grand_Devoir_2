@@ -56,14 +56,14 @@ public class CraftingController {
     }
 
     private boolean craftItem(String baseItemName, String newItemName, String type, int hpBonus, int armorBonus, int attackBonus) {
-        // Debugging pentru inventar
+
         System.out.println("Inventar curent: " + gameIntegration.getPlayer().getInventoryNames());
         System.out.println("Cantitați: " + gameIntegration.getPlayer().getInventoryCounts());
 
         int bloodCount = gameIntegration.getPlayer().getItemCount("Sângele Inamicului");
         int baseItemCount = gameIntegration.getPlayer().getItemCount(baseItemName);
 
-        // Verificam daca jucatorul are suficiente materiale
+
         if (bloodCount < 5) {
             showAlert("Materiale insuficiente!", "Ai nevoie de 5 Sânge de Inamic pentru a crea " + newItemName + ".");
             return false;
@@ -74,17 +74,17 @@ public class CraftingController {
             return false;
         }
 
-        // Consumam materialele necesare
+
         for (int i = 0; i < 5; i++) {
             gameIntegration.getPlayer().useItem("Sângele Inamicului");
         }
         gameIntegration.getPlayer().useItem(baseItemName);
 
-        // Cream și echipam noul item
+
         Item newItem = new Item(newItemName, type, hpBonus, armorBonus, attackBonus);
         gameIntegration.getPlayer().equipItem(newItem);
 
-        // Actualizam interfața
+
         gameIntegration.updatePlayerStats();
         gameIntegration.updateFormattedInventory();
         showAlert("Succes!", newItemName + " a fost creat și echipat cu succes.");

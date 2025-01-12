@@ -21,24 +21,24 @@ import java.util.Optional;
 public class GameIntegration {
 
     @FXML
-    private GridPane gameGrid; // Grid pentru harta
+    private GridPane gameGrid;
 
     @FXML
-    private ListView<String> inventoryList; // ListView pentru inventar
+    private ListView<String> inventoryList;
 
     private GameInteractions gameInteractions;
 
-    private Object[][] map; // Harta jocului
+    private Object[][] map;
     @FXML
     private ListView<String> statsList;
     private ObservableList<String> playerStats = FXCollections.observableArrayList();
     public Player player = new Player();
-    // Lista pentru inventar
+
     private ObservableList<String> inventory = FXCollections.observableArrayList();
     private ObservableList<String> inventoryNames = FXCollections.observableArrayList();
     private ObservableList<Integer> inventoryCounts = FXCollections.observableArrayList();
     private ObservableList<String> formattedInventory = FXCollections.observableArrayList();
-    private int score = 0; // Scorul începe de la 0
+    private int score = 0;
     @FXML
     private Label scoreLabel;
     @FXML
@@ -51,20 +51,20 @@ public class GameIntegration {
         map = new Object[mapSize][mapSize];
         initializeMap(mapSize);
         mainPane.setStyle(SettingsController.getBackgroundColor());
-        // Poziția inițiala a jucatorului
+
         int playerStartX = mapSize / 2;
         int playerStartY = mapSize / 2;
         map[playerStartY][playerStartX] = "Player";
 
         System.out.println("Jucatorul a fost plasat pe harta la poziția: (" + playerStartX + ", " + playerStartY + ")");
 
-        // Inițializare GameInteractions
+
         gameInteractions = new GameInteractions(map, playerStartX, playerStartY, this);
 
-        scoreLabel.setText("Scor: " + score); // Inițializare scor
-        inventoryList.setItems(formattedInventory); // Legam lista formatata de ListView
+        scoreLabel.setText("Scor: " + score);
+        inventoryList.setItems(formattedInventory);
 
-        updatePlayerStats(); // Actualizam statisticile jucatorului
+        updatePlayerStats();
         statsList.setItems(playerStats);
         drawMap();
     }
@@ -80,15 +80,15 @@ public class GameIntegration {
         Object encountered = map[y][x];
 
         if (encountered == null) {
-            System.out.println("Te-ai mutat pe o celula goala.");
+            System.out.println("Te-ai mutat pe o celulă goală.");
         } else if ("Tree".equals(encountered)) {
             player.addItemToInventory("Lemn");
             System.out.println("Ai colectat Lemn.");
             map[y][x] = null;
             updateFormattedInventory();
         } else if ("Rock".equals(encountered)) {
-            player.addItemToInventory("Piatra");
-            System.out.println("Ai colectat Piatra.");
+            player.addItemToInventory("Piatră");
+            System.out.println("Ai colectat Piatră.");
             map[y][x] = null;
             updateFormattedInventory();
         } else if ("Grain".equals(encountered)) {
@@ -100,7 +100,11 @@ public class GameIntegration {
             System.out.println("Ai întâlnit un inamic! Lupta începe.");
             startCombat(x, y);
         }
+
+
+        checkIfGameWon();
     }
+
     private void startCombat(int x, int y) {
         try {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("combat-window.fxml"));
@@ -110,22 +114,20 @@ public class GameIntegration {
             controller.setGameIntegration(this);
             controller.setPlayer(player);
 
-            // Setam callback-ul pentru sfârșitul luptei
+
             controller.setOnCombatEnd(() -> {
                 if (player.getHp() > 0) {
-                    // Inamicul a fost învins
+
                     System.out.println("Ai câștigat lupta!");
-                    map[y][x] = null; // Eliminam inamicul de pe harta
+                    map[y][x] = null;
                     drawMap();
 
-                    // Generam loot-ul
                     Item loot = generateRandomLoot();
                     System.out.println("Ai primit: " + loot.getName());
 
-                    // Întreaba utilizatorul daca dorește sa echipeze itemul
                     askToEquipItem(loot);
 
-                    // Adauga în inventar itemul droplat
+
                     player.addItemToInventory(loot.getName());
                     updateFormattedInventory();
                 } else {
@@ -157,12 +159,11 @@ public class GameIntegration {
 
         Optional<ButtonType> result = alert.showAndWait();
         if (result.isPresent() && result.get() == buttonYes) {
-            player.equipItem(item); // Echipam itemul
+            player.equipItem(item);
             System.out.println("Ai echipat: " + item.getName());
-            updatePlayerStats(); // Actualizam statisticile
-            updateFormattedInventory(); // Actualizam inventarul
+            updatePlayerStats();
+            updateFormattedInventory();
         } else {
-            // Adaugam itemul în inventar daca nu este echipat
             player.addItemToInventory(item.getName());
             updateFormattedInventory();
             System.out.println("Ai adaugat în inventar: " + item.getName());
@@ -173,14 +174,13 @@ public class GameIntegration {
 
 
     public Item generateRandomLoot() {
-        // Definim posibilele loot-uri
         Item[] lootTable = {
                 new Item("Sabie a Inamicului", "Arma", 0, 0, 15),
                 new Item("Casca a Inamicului", "Casca", 5, 0, 0),
                 new Item("Armura a Inamicului", "Armura", 10, 10, 0)
         };
 
-        // Alegem un item aleatoriu
+
         int randomIndex = (int) (Math.random() * lootTable.length);
         return lootTable[randomIndex];
     }
@@ -211,7 +211,7 @@ public class GameIntegration {
     }
 
     private void drawMap() {
-        gameGrid.getChildren().clear(); // Curațam GridPane-ul
+        gameGrid.getChildren().clear();
         for (int y = 0; y < map.length; y++) {
             for (int x = 0; x < map[y].length; x++) {
                 javafx.scene.shape.Rectangle cell = new javafx.scene.shape.Rectangle(50, 50);
@@ -220,7 +220,7 @@ public class GameIntegration {
                 if (map[y][x] == null) {
                     cell.setFill(javafx.scene.paint.Color.LIGHTGRAY);
                 } else if ("Player".equals(map[y][x])) {
-                    cell.setFill(javafx.scene.paint.Color.PINK); // Jucatorul este reprezentat cu roz
+                    cell.setFill(javafx.scene.paint.Color.PINK);
                 } else if ("Tree".equals(map[y][x])) {
                     cell.setFill(javafx.scene.paint.Color.GREEN);
                 } else if ("Rock".equals(map[y][x])) {
@@ -239,10 +239,9 @@ public class GameIntegration {
         int index = inventoryNames.indexOf(itemName);
 
         if (index >= 0) {
-            // Obiectul exista deja în inventar
+
             inventoryCounts.set(index, inventoryCounts.get(index) + 1);
         } else {
-            // Adaugam un obiect nou
             inventoryNames.add(itemName);
             inventoryCounts.add(1);
         }
@@ -253,7 +252,7 @@ public class GameIntegration {
     void updateFormattedInventory() {
         formattedInventory.clear();
 
-        // Verificam consistența între `inventoryNames` și `inventoryCounts`
+
         if (player.getInventoryNames().size() != player.getInventoryCounts().size()) {
             System.out.println("Eroare: Dimensiunile listelor inventarului nu coincid!");
             return;
@@ -264,23 +263,53 @@ public class GameIntegration {
             formattedInventory.add(formattedItem);
         }
 
-        inventoryList.setItems(formattedInventory); // Actualizam vizual inventarul
+        inventoryList.setItems(formattedInventory);
+    }
+    private void showVictoryMessage() {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Joc Terminat");
+        alert.setHeaderText("Felicitări!");
+        alert.setContentText("Ai câștigat jocul! Scor: " + score);
+
+        alert.showAndWait();
+
+
+        Platform.exit();
     }
 
+    private void checkIfGameWon() {
+        boolean isMapEmpty = true;
+
+
+        for (int y = 0; y < map.length; y++) {
+            for (int x = 0; x < map[y].length; x++) {
+                if (map[y][x] != null && !"Player".equals(map[y][x])) {
+                    isMapEmpty = false;
+                    break;
+                }
+            }
+            if (!isMapEmpty) break;
+        }
+
+
+        if (isMapEmpty) {
+            showVictoryMessage();
+        }
+    }
 
 
 
     public void saveGame() {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("save.txt"))) {
-            // Salvam poziția jucatorului
+
             writer.write(gameInteractions.getPlayerX() + " " + gameInteractions.getPlayerY());
             writer.newLine();
 
-            // Salvam atributele jucatorului
+
             writer.write(player.getHp() + " " + player.getArmor() + " " + player.getAttack());
             writer.newLine();
 
-            // Salvam echipamentele jucatorului
+
             StringBuilder equippedItems = new StringBuilder();
             for (Item item : player.getEquippedItems()) {
                 equippedItems.append(item.getName()).append(",")
@@ -292,7 +321,7 @@ public class GameIntegration {
             writer.write(equippedItems.toString());
             writer.newLine();
 
-            // Salvam harta
+
             for (int y = 0; y < map.length; y++) {
                 for (int x = 0; x < map[y].length; x++) {
                     writer.write((map[y][x] == null ? "null" : map[y][x].toString()) + " ");
@@ -300,7 +329,7 @@ public class GameIntegration {
                 writer.newLine();
             }
 
-            // Salvam inventarul
+
             for (int i = 0; i < player.getInventoryNames().size(); i++) {
                 writer.write(player.getInventoryNames().get(i) + " " + player.getInventoryCounts().get(i));
                 writer.newLine();
@@ -320,26 +349,26 @@ public class GameIntegration {
 
     public void loadGame() {
         try (BufferedReader reader = new BufferedReader(new FileReader("save.txt"))) {
-            // Încarcam poziția jucatorului
+
             String[] position = reader.readLine().split(" ");
             int playerX = Integer.parseInt(position[0]);
             int playerY = Integer.parseInt(position[1]);
             gameInteractions.setPlayerPosition(playerX, playerY);
 
-            // Încarcam atributele jucatorului
+
             String[] playerAttributes = reader.readLine().split(" ");
             player.setBaseHp(Integer.parseInt(playerAttributes[0]));
             player.setBaseArmor(Integer.parseInt(playerAttributes[1]));
             player.setBaseAttack(Integer.parseInt(playerAttributes[2]));
 
-            // Încarcam echipamentele jucatorului
+
             String equippedLine = reader.readLine();
             if (!equippedLine.isEmpty() && !equippedLine.equals("null")) {
                 String[] equippedItems = equippedLine.split(";");
                 for (String equippedItem : equippedItems) {
                     if (!equippedItem.trim().isEmpty()) {
                         String[] itemData = equippedItem.split(",");
-                        if (itemData.length == 5) { // Verificam formatul corect
+                        if (itemData.length == 5) {
                             String name = itemData[0];
                             String type = itemData[1];
                             int hpBonus = Integer.parseInt(itemData[2]);
@@ -347,7 +376,7 @@ public class GameIntegration {
                             int attackBonus = Integer.parseInt(itemData[4]);
 
                             Item item = new Item(name, type, hpBonus, armorBonus, attackBonus);
-                            player.equipItem(item); // Echipam itemul
+                            player.equipItem(item);
                         } else {
                             System.out.println("Eroare: Format incorect pentru echipamente -> " + equippedItem);
                         }
@@ -355,7 +384,7 @@ public class GameIntegration {
                 }
             }
 
-            // Încarcam harta
+
             for (int y = 0; y < map.length; y++) {
                 String[] line = reader.readLine().split(" ");
                 for (int x = 0; x < map[y].length; x++) {
@@ -363,14 +392,14 @@ public class GameIntegration {
                 }
             }
 
-            // Încarcam inventarul
+
             player.getInventoryNames().clear();
             player.getInventoryCounts().clear();
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(" ");
                 if (parts.length == 2) {
-                    player.addItemToInventory(parts[0]); // Adaugam obiectul în inventar
+                    player.addItemToInventory(parts[0]);
                     int count = Integer.parseInt(parts[1]);
                     int index = player.getInventoryNames().indexOf(parts[0]);
                     if (index >= 0) {
@@ -381,10 +410,10 @@ public class GameIntegration {
                 }
             }
 
-            // Actualizam interfața
-            updatePlayerStats(); // Actualizam statisticile
-            updateFormattedInventory(); // Actualizam inventarul
-            drawMap(); // Redesenam harta
+
+            updatePlayerStats();
+            updateFormattedInventory();
+            drawMap();
 
             System.out.println("Jocul a fost încarcat cu succes.");
         } catch (IOException | NumberFormatException e) {
@@ -408,7 +437,7 @@ public class GameIntegration {
             playerStats.add("- " + item.getName());
         }
 
-        statsList.setItems(playerStats); // Actualizeaza vizual statisticile
+        statsList.setItems(playerStats);
     }
 
 
@@ -416,7 +445,7 @@ public class GameIntegration {
 
     public void unequipItem(String itemType) {
         player.getEquippedItems().removeIf(item -> item.getType().equals(itemType));
-        updatePlayerStats(); // Actualizam statisticile dupa dezechipare
+        updatePlayerStats();
         System.out.println("Ai dezechipat item-ul de tip: " + itemType);
     }
 
@@ -433,7 +462,7 @@ public class GameIntegration {
 
         alert.showAndWait();
 
-        // Ieșire din aplicație
+
         Platform.exit();
     }
     public void incrementScore() {

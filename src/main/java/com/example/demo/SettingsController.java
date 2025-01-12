@@ -5,7 +5,7 @@ import javafx.scene.layout.Pane;
 
 public class SettingsController {
 
-    private static String backgroundColor = "-fx-background-color: white;"; // Default color
+    private static String backgroundColor = "-fx-background-color: white;";
     private Pane mainPane;
 
     public void setMainPane(Pane mainPane) {

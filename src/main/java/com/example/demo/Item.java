@@ -1,8 +1,8 @@
 package com.example.demo;
 
 public class Item {
-    private String name; // Numele itemului
-    private String type; // Tipul itemului: Casca, Armura, Arma
+    private String name;
+    private String type;
     private int hpBonus;
     private int armorBonus;
     private int attackBonus;
@@ -15,7 +15,7 @@ public class Item {
         this.attackBonus = attackBonus;
     }
 
-    // Getteri pentru atribute
+
     public String getName() {
         return name;
     }

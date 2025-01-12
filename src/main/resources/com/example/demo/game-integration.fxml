@@ -8,7 +8,6 @@
             onKeyPressed="#handleKeyPress" fx:id="mainPane">
     <center>
         <GridPane fx:id="gameGrid" alignment="CENTER" hgap="5" vgap="5">
-            <!-- Harta generata va fi afișata aici -->
         </GridPane>
     </center>
     <right>

@@ -16,8 +16,6 @@ public class HelloApplication extends Application {
         Scene scene = new Scene(fxmlLoader.load());
         primaryStage.setScene(scene);
         primaryStage.show();
-
-        // Asigură-te că elementul principal are focus
         BorderPane borderPane = (BorderPane) scene.getRoot();
         borderPane.requestFocus();
     }
