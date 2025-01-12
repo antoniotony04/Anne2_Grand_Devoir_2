@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.control.Button?>
+
+<VBox xmlns="http://javafx.com/javafx"
+      xmlns:fx="http://javafx.com/fxml"
+      fx:controller="com.example.demo.SettingsController"
+      spacing="10" alignment="CENTER" style="-fx-padding: 20;">
+    <Button text="Albastru" onAction="#setBlueBackground"/>
+    <Button text="Roșu" onAction="#setRedBackground"/>
+    <Button text="Alb" onAction="#setWhiteBackground"/>
+</VBox>

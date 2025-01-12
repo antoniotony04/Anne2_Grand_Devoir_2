@@ -9,6 +9,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.*;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.GridPane;
 import javafx.stage.Stage;
 
@@ -40,6 +41,8 @@ public class GameIntegration {
     private int score = 0; // Scorul începe de la 0
     @FXML
     private Label scoreLabel;
+    @FXML
+    private BorderPane mainPane;
 
 
     @FXML
@@ -47,7 +50,7 @@ public class GameIntegration {
         int mapSize = 10;
         map = new Object[mapSize][mapSize];
         initializeMap(mapSize);
-
+        mainPane.setStyle(SettingsController.getBackgroundColor());
         // Poziția inițiala a jucatorului
         int playerStartX = mapSize / 2;
         int playerStartY = mapSize / 2;

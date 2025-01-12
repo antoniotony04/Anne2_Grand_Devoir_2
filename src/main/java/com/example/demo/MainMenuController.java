@@ -8,6 +8,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.Pane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.stage.Stage;
@@ -23,7 +24,15 @@ public class MainMenuController {
 
     @FXML
     private GridPane gameGrid; // GridPane pentru afișarea hărții
+    @FXML
+    private Pane mainPane; // Legat de root Pane-ul principal al aplicației
 
+
+    @FXML
+    public void initialize() {
+        // Apply the saved background color on load
+        mainPane.setStyle(SettingsController.getBackgroundColor());
+    }
 
     @FXML
     public void resumeGame(ActionEvent event) {
@@ -69,14 +78,24 @@ public class MainMenuController {
 
 
     @FXML
-    public void openOptions(ActionEvent event) {
-        // Logică pentru opțiuni
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Options");
-        alert.setHeaderText(null);
-        alert.setContentText("Funcționalitatea de opțiuni va fi implementată.");
-        alert.showAndWait();
+    private void openOptions() {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("settings.fxml"));
+            Parent root = loader.load();
+
+            // Pass the mainPane reference to the SettingsController
+            SettingsController controller = loader.getController();
+            controller.setMainPane(mainPane);
+
+            Stage stage = new Stage();
+            stage.setTitle("Setări");
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException e) {
+            System.out.println("Eroare la deschiderea ferestrei de setări: " + e.getMessage());
+        }
     }
+
 
     @FXML
     public void showHelp(ActionEvent event) {
